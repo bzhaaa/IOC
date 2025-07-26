@@ -11,9 +11,9 @@ public class BeanDefinition {
 
     private String className;
 
-    private MutablePropertyValue propertyValues;
+    private MutablePropertyValues propertyValues;
 
     public BeanDefinition() {
-        this.propertyValues = new MutablePropertyValue();
+        this.propertyValues = new MutablePropertyValues();
     }
 }

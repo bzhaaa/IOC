@@ -1,8 +1,11 @@
 package org.example.ioc.beans;
 
-import lombok.Data;
+import lombok.*;
 
-@Data
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class PropertyValue {
 
     private String name;

@@ -1,0 +1,89 @@
+classDiagram
+    class Beanfactory {
+        <<interface>>
+        + getBean(String beanName) Object
+        + getBean(String beanName, Class~T~ requiredType) T
+    }
+
+    class ApplicationContext{
+        <<interface>>
+        + refresh() void
+    }
+
+    class AbstractApplicationContext {
+        <<abstact>>
+        # beanDefinitionReader: BeanDefinitionReader
+        # singletonObjects: Map~String, Object~
+        # congifLocation: String
+        + refresh() void
+        - finishBeanInitialization() void
+    }
+
+    class ClassPathXmlApplicationContext {
+        + ClassPathXmlApplicationContext(String configLocation)
+        + getBean(String beanName) Object
+        + getBean(String beanName, Class~T~ requiredType) T
+    }
+
+    class BeanDefinitionReader {
+        <<interface>>
+        + getRegistry() BeanDefinitionRegistry
+        + loadBeanDefinition(String location) void
+
+    }
+
+    class XmlBeanDefinitionReader {
+        - registry: BeanDefinitionRegistry
+        + XmlBeanDefinitionReader()
+        
+    }
+
+    class BeanDefinitionRegistry {
+        <<interface>>
+        + registerBeanDefinition(String beanName, BeanDefinition beanDefinition) void
+        + getBeanDefinition(String beanName) BeanDefinition
+        + getBeanDefinitionNames() String[]
+        + containsBeanDefinition(String beanName) boolean
+        + getBeanDefinitionCount() int
+        + removeBeanDefinition(String beanName) void
+    }
+
+    class SimpleBeanDefinitionRegistry {
+        + beanDefinitionMap: Map~String, BeanDefinition~
+    }
+
+    class BeanDefinition {
+        - id: String
+        - className: String
+        - propertyValues: MutablePropertyValues
+    }
+
+    class PropertyValue {
+        - name: String
+        - ref: String
+        - Value: String
+    }
+
+    class MutablePropertyValues {
+        - propertyValueList: List~PropertyValue~
+        + MutablePropertyValues()
+        + MutablePropertyValues(List~PropertyValue~ propertyValueList)
+        + getPropertyValues() PropertyValue[]
+        + getPropertyValue(String PropertyName) PropertyValue
+        + isEmpty() boolean
+        + addPropertyValue(PropertyValue propertyValue) MutablePropertyValues
+        + contains(String propertyName) boolean
+    }
+
+    Beanfactory <|-- ApplicationContext
+    ApplicationContext <|.. AbstractApplicationContext
+    AbstractApplicationContext <|-- ClassPathXmlApplicationContext
+    BeanDefinitionReader <|.. XmlBeanDefinitionReader
+    BeanDefinitionRegistry <|.. SimpleBeanDefinitionRegistry
+    BeanDefinitionReader ..> BeanDefinitionRegistry
+    XmlBeanDefinitionReader --> BeanDefinitionRegistry
+    AbstractApplicationContext --> BeanDefinitionReader
+    SimpleBeanDefinitionRegistry --> BeanDefinition
+    BeanDefinitionRegistry ..> BeanDefinition
+    BeanDefinition --> MutablePropertyValues
+    MutablePropertyValues --> PropertyValue

@@ -4,15 +4,15 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-public class MutablePropertyValue implements Iterable<PropertyValue>{
+public class MutablePropertyValues implements Iterable<PropertyValue>{
 
     private final List<PropertyValue> propertyValueList;
 
-    public MutablePropertyValue() {
+    public MutablePropertyValues() {
         this.propertyValueList = new ArrayList<>();
     }
 
-    public MutablePropertyValue(List<PropertyValue> propertyValueList) {
+    public MutablePropertyValues(List<PropertyValue> propertyValueList) {
         if (propertyValueList == null) {
             this.propertyValueList = new ArrayList<PropertyValue>();
         } else {
@@ -37,7 +37,7 @@ public class MutablePropertyValue implements Iterable<PropertyValue>{
         return propertyValueList.isEmpty();
     }
 
-    public MutablePropertyValue addPropertyValue(PropertyValue propertyValue) {
+    public MutablePropertyValues addPropertyValue(PropertyValue propertyValue) {
         for (int i = 0; i < propertyValueList.size(); i++) {
             PropertyValue propertyValue1 = propertyValueList.get(i);
             if (propertyValue1.getName().equals(propertyValue.getName())) {
